@@ -1,38 +1,24 @@
 # Imports do arquivo
-import time
-import sys
-
-
-###############################################################
-
-
-# Definição das variáveis das cores
-vermelho = '\033[31m'
-verde = '\033[32m'
-azul = '\033[34m'
-ciano = '\033[36m'
-magenta = '\033[35m'
-amarelo = '\033[33m'
-preto = '\033[30m'
-branco = '\033[37m'
-restaurar_cor = '\033[0;0m'
+from sys import exit
+from time import sleep
 
 
 ###############################################################
 
 
 # Função para mostrar o menu de opções
-def entradaOpcao():
-    print(10 * '-', 'Opções', 10 * '-')
-    print('1- Adicionar dados')
-    print('2- Ler dados')
-    print('3- Atualizar dados')
-    print('4- Excluir dados')
-    print('5- Sair do programa')
-    print(28 * '-')
+def chamarMenu():
+    print(10 * "-", "Opções", 10 * "-")
+    print("1- Adicionar dados")
+    print("2- Ler dados")
+    print("3- Atualizar dados")
+    print("4- Excluir dados")
+    print("5- Realizar backup dos dados")
+    print("0- Sair do programa")
+    print(28 * "-")
 
     # Salvar a escolha do usuário em uma variável
-    escolha = str(input('Digite a opção desejada: '))
+    escolha = str(input("Digite a opção desejada: "))
 
     # Retornar a escolha do usuário
     return escolha
@@ -44,45 +30,59 @@ def entradaOpcao():
 # Função para validar a opção escolhida pelo usuário
 def validacao(escolha):
     match escolha:
-        case '1':
+        case "1":
             try:
+                # Chama a função para adicionar dados
                 adicionarDados()
-                print('Dado adicionado com sucesso!')
+                print("\nLivros adicionados com sucesso!")
                 return True
-            except ValueError:
-                print('Ocorreu um erro ao adicionar o dado!')
-        case '2':
+            except Exception:
+                print("Ocorreu um erro ao cadastrar o livro!")
+        case "2":
             try:
+                # Chama a função para ler dados
                 lerDados()
-                print('Dados lidos com sucesso!')
+                print("\nDados lidos com sucesso!")
+                input("\nPressione Enter para continuar...")
                 return True
-            except ValueError:
-                print('Ocorreu um erro ao ler os dados!')
-        case '3':
+            except Exception:
+                print("Ocorreu um erro ao ler os dados!")
+        case "3":
             try:
+                # Chama a função para atualizar dados
                 atualizarDados()
-                print('Dados atualizados com sucesso!')
+                print("\nDado atualizado com sucesso!")
                 return True
-            except ValueError:
-                print('Ocorreu um erro ao atualizar os dados!')
-        case '4':
+            except Exception:
+                print("Ocorreu um erro ao atualizar os dados!")
+        case "4":
             try:
+                # Chama a função para excluir dados
                 excluirDados()
-                print('Dados excluídos com sucesso!')
+                print("\nLivro excluído com sucesso!")
                 return True
-            except ValueError:
-                print('Ocorreu um erro ao excluir os dados!')
-        case '5':
-            print('Saindo do programa...')
-            sys.exit()
+            except Exception:
+                print("Ocorreu um erro ao excluir o livro!")
+        case "5":
+            try:
+                # Chama a função para fazer backup dos dados
+                backupDados()
+                print("\nBackup realizado com sucesso!")
+                return True
+            except Exception:
+                print("Ocorreu um erro ao realizar o backup dos dados!")
+        case "0":
+            # Sai do programa
+            print("Saindo do programa...")
+            exit()
         case _:
-            print('Opção inválida!')
-            print('.')
-            time.sleep(0.4)
-            print('.')
-            time.sleep(0.4)
-            print('.')
-            time.sleep(0.4)
+            print("Opção inválida!")
+            print(".")
+            sleep(0.4)
+            print(".")
+            sleep(0.4)
+            print(".")
+            sleep(0.4)
             return False
 
 
@@ -91,30 +91,31 @@ def validacao(escolha):
 
 # Função para gravar novos dados
 def adicionarDados():
-    # Definição das variáveis responsáveis pela quebra dos whiles
-    variavel_continuar_adicao = 's'
+    # Definição da variável responsável pela quebra dos whiles
+    variavel_continuar_adicao = "s"
 
-    # While para adição de novos dados até o usuário digitar 'n'
-    while variavel_continuar_adicao == 's':
-        # Atribuição dos dados
-        nome = str(input('Nome: '))
-        sexo = str(input('Sexo: '))
+    # While para adição de novos dados até o usuário digitar "n"
+    while variavel_continuar_adicao == "s":
+        # Entrada dos dados por parte do usuário
+        livro = str(input("Livro: "))
+        autor = str(input("Autor: "))
 
-        # Formatação dos dados em uma string
-        dados_salvos = f"{nome} - {sexo}\n"
+        # Formatação dos dados digitados em uma string
+        dados_salvos = f"{livro} - {autor}\n"
 
-        # Gravação dos dados no arquivo de texto
-        with open('usuarios.txt', 'a', encoding='utf-8') as arquivo_txt:
+        # Abre o arquivo 'livros.txt' no modo leitura e fecha após o uso
+        # Cria o arquivo caso não exista
+        with open("livros.txt", "a", encoding="utf-8") as arquivo_txt:
             arquivo_txt.write(dados_salvos)
 
-        # Perguntar se deseja continuar a gravação
-        variavel_continuar_adicao = str(input('Deseja adicionar mais dados? [s/n] ')).lower()
+        # Pergunta se deseja continuar a gravação e registra 's' ou 'n'
+        variavel_continuar_adicao = str(input("Deseja adicionar mais livros? [s/n] ")).lower()
 
         # Tratamento de exceção do [s/n]
-        while variavel_continuar_adicao not in ['s', 'n']:
-            print('Opção inválida! Tente novamente...')
-            time.sleep(1)
-            variavel_continuar_adicao = str(input('Deseja adicionar mais dados? [s/n] ')).lower()
+        while variavel_continuar_adicao not in ["s", "n"]:
+            print("Opção inválida! Tente novamente...")
+            sleep(1)
+            variavel_continuar_adicao = str(input("Deseja adicionar mais livros? [s/n] ")).lower()
 
 
 ###############################################################
@@ -122,22 +123,33 @@ def adicionarDados():
 
 # Função para ler os dados gravados
 def lerDados():
-    with open('usuarios.txt', 'r') as arquivo_txt:
+    # Abre o arquivo 'livros.txt' no modo leitura e fecha após o uso
+    with open("livros.txt", "r") as arquivo_txt:
+        # Grava no formato de texto os dados de 'livros.txt' na variável 'linhas'
         linhas = arquivo_txt.readlines()
 
-        if not linhas:
-            print('Nenhum dado registrado!')
-            time.sleep(1)
-        else:
-            print('Dados registrados:\n')
-            time.sleep(0.2)
+    # Salva a quantidade de linhas do arquivo dentro da variável 'quantidade_linhas'
+    quantidade_linhas = (len(linhas))
 
-        i = 1
-        for linha in linhas:
+    # No caso de não houverem dados dentro do arquivo
+    if not linhas:
+        print("Nenhum livro registrado!")
+        sleep(0.5)
+    elif quantidade_linhas == 1:
+        print(f"O banco de dados possui {quantidade_linhas} livro:\n")
+        sleep(0.5)
+    else:
+        print(f"O banco de dados possui {quantidade_linhas} livros:\n")
+        sleep(0.5)
 
-            print(f'{i}- ' + linha)
-            time.sleep(0.1)
-            i += 1
+    # Abre a variável 'indice' para a impressão do índice do dado na tela
+    indice = 1
+
+    # Para cada linha no arquivo, imprime seus dados na tela
+    for linha in linhas:
+        print(f"{indice}- " + linha, end="")
+        sleep(0.1)
+        indice += 1
 
 
 ###############################################################
@@ -145,23 +157,35 @@ def lerDados():
 
 # Função para atualizar dados
 def atualizarDados():
-    with open('usuarios.txt', 'r') as arquivo_txt:
+    # Abre o arquivo 'livros.txt' no modo leitura e fecha após o uso
+    with open("livros.txt", "r") as arquivo_txt:
+        # Grava no formato de texto os dados de 'livros.txt' na variável 'linhas'
         linhas = arquivo_txt.readlines()
 
+    # Salva a quantidade de linhas do arquivo dentro da variável 'quantidade_linhas'
     quantidade_linhas = (len(linhas))
-
-    print(f'O banco possui {quantidade_linhas} valores')
+    # If para diferenciação entre 1 ou mais dados
+    if quantidade_linhas == 1:
+        print(f"O banco de dados possui {quantidade_linhas} livro")
+    else:
+        print(f"O banco de dados possui {quantidade_linhas} livros")
     lerDados()
 
-    indice = int(input('Escolha qual valor você quer editar: '))
+    # Variável para registrar qual dado o usuário irá editar
+    indice = int(input("Escolha qual livro você quer editar: "))
 
-    novo_valor = str(input('Escolha o novo valor: '))
+    # Variável para salvar o novo valor
+    novo_valor = str(input("Escolha o novo valor: "))
 
-    with open('usuarios.txt', 'w') as arquivo_txt:
-        linhas[indice-1] = f'{novo_valor}\n'
+    # Abre o arquivo 'livros.txt' no modo escrita e fecha após o uso
+    with open("livros.txt", "w") as arquivo_txt:
+        # Salva o novo valor na linha (indice - 1)
+        linhas[indice - 1] = f"{novo_valor}\n"
+        # Escreve o novo valor na linha propriamente
         arquivo_txt.writelines(linhas)
 
-    print(f'{indice}- ' + linhas[indice-1])
+    # Printa o novo valor na tela
+    print(f"{indice}- " + linhas[indice - 1])
 
 
 ###############################################################
@@ -169,18 +193,46 @@ def atualizarDados():
 
 # Função para excluir dados
 def excluirDados():
-    with open('usuarios.txt', 'r') as arquivo_txt:
+    # Abre o arquivo 'livros.txt' no modo leitura e fecha após o uso
+    with open("livros.txt", "r") as arquivo_txt:
+        # Grava no formato de texto os dados de 'livros.txt' na variável 'linhas'
         linhas = arquivo_txt.readlines()
 
+    # Salva a quantidade de linhas do arquivo dentro da variável 'quantidade_linhas'
     quantidade_linhas = (len(linhas))
+    # If para diferenciação entre 1 ou mais dados
+    if quantidade_linhas == 1:
+        print(f"O banco de dados possui {quantidade_linhas} livro")
+    else:
+        print(f"O banco de dados possui {quantidade_linhas} livros")
 
-    print(f'O banco possui {quantidade_linhas} valores')
     lerDados()
 
-    indice = int(input('Escolha qual valor você quer excluir: '))
+    # Variável para registrar qual dado o usuário irá excluir
+    indice = int(input("Escolha qual livro você quer excluir: "))
 
-    with open('usuarios.txt', 'w') as arquivo_txt:
-        del linhas[indice-1]
+    # Abre o arquivo 'livros.txt' no modo escrita e fecha após o uso
+    with open("livros.txt", "w") as arquivo_txt:
+        # Deleta a linha de valor (indice - 1)
+        del linhas[indice - 1]
+        # Escreve a edição no arquivo propriamente
         arquivo_txt.writelines(linhas)
 
-    print(f'Dado número {indice} excluído')
+    # Printa o índice do dado excluído
+    print(f"Livro número {indice} excluído")
+
+
+#########################################
+
+
+def backupDados():
+    # Abre o arquivo 'livros.txt' no modo leitura e fecha após o uso
+    with open("livros.txt", "r") as arquivo_txt:
+        # Grava no formato de texto os dados de 'livros.txt' na variável 'linhas'
+        linhas = arquivo_txt.readlines()
+
+    # Abre o arquivo 'backup.txt' no modo escrita e fecha após o uso
+    # O arquivo será criado caso não exista
+    with open("backup.txt", "w") as backup:
+        # Grava os dados salvos em 'linhas' no arquivo 'backup.txt'
+        backup.writelines(linhas)
