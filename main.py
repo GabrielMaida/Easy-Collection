@@ -1,4 +1,4 @@
-# Import das funções de functions.py
-from functions import chamarMenu
+# Import das funções de functions2.py
+from functions import mainExecution
 
-chamarMenu()
+mainExecution()

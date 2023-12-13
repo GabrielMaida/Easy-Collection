@@ -2,8 +2,11 @@ desktop.ini
 usuarios.txt
 backup.txt
 livros.txt
+functions2.py
 create_db.py
 teste.py
+extra/
+documentation/
 
 # Created by https://www.toptal.com/developers/gitignore/api/python
 # Edit at https://www.toptal.com/developers/gitignore?templates=python
