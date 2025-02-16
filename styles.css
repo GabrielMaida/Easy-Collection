@@ -1,0 +1,73 @@
+*:not(html){
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    background-color: lightgoldenrodyellow;
+    outline: auto;
+}
+
+body{
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+div.header{
+    background-color: green;
+    height: 7vh;
+}
+
+div.carousel{
+    background-color: blue;
+    color: white;
+    height: 47vh;
+    width: auto;
+    background-image: url(images/legacy.jpg);
+    background-position: center;
+    background-size: contain;
+}
+
+div.principal-content{
+    width: 100%;
+    background-color: yellow;
+    display: flex;
+    flex-direction: column;
+}
+
+section{
+    background-color: inherit;
+}
+
+div.principal-content h1{
+    background-color: inherit;
+    margin: 0;
+}
+
+div.games{
+    background-color: inherit;
+    height: 21rem;
+    display: flex;
+    flex-direction: row;
+    overflow-y: hidden;
+    overflow-x: scroll;
+    margin: 20px 30px;
+    gap: 10px;
+}
+
+div.games>img {
+    height: 20rem;
+    flex-shrink: 0;
+    display: block;
+    aspect-ratio: 2/3;
+}
+
+div.games>img:hover{
+    transform: scale(1.05);
+    transition: all 0.3s ease;
+    object-fit: fill;
+    opacity: 0.45;
+}
+
+div.footer{
+    background-color: green;
+    height: 3vw;
+}
